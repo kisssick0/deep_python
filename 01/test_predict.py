@@ -73,6 +73,49 @@ class TestPredict(unittest.TestCase):
             self.assertEqual("отл", predict_message_mood("AAAA", self.model, 0.5, 0.99))
             self.assertEqual(0.999, mock_sm('AAAA'))
 
+    def test_get_predict_with_corner_thresholds(self):
+        with mock.patch("predict1.SomeModel.predict") as mock_sm:
+            mock_sm.return_value = 0
+
+            self.assertEqual(0.0, mock_sm('AAAA'))
+            self.assertEqual("норм", predict_message_mood("AAAA", self.model, 0.0, 1.0))
+            self.assertEqual(0.0, mock_sm('AAAA'))
+
+            mock_sm.return_value = 1.0
+
+            self.assertEqual(1.0, mock_sm('AAAA'))
+            self.assertEqual("норм", predict_message_mood("AAAA", self.model, 0.0, 1.0))
+            self.assertEqual(1.0, mock_sm('AAAA'))
+
+            mock_sm.return_value = 0.5
+
+            self.assertEqual(0.5, mock_sm('AAAA'))
+            self.assertEqual("норм", predict_message_mood("AAAA", self.model, 0.0, 1.0))
+            self.assertEqual(0.5, mock_sm('AAAA'))
+
+    def test_type_error_thresholds(self):
+        with mock.patch("predict1.SomeModel.predict") as mock_sm:
+            mock_sm.return_value = 0.5
+
+            self.assertEqual(0.5, mock_sm('AAAA'))
+            with self.assertRaises(TypeError):
+                predict_message_mood("AAAA", self.model, 'a', 0.5)
+            self.assertEqual(0.5, mock_sm('AAAA'))
+
+            self.assertEqual(0.5, mock_sm('AAAA'))
+            with self.assertRaises(TypeError):
+                predict_message_mood("AAAA", self.model, 0.5, 'a')
+            self.assertEqual(0.5, mock_sm('AAAA'))
+
+    def test_value_error_thresholds(self):
+        with mock.patch("predict1.SomeModel.predict") as mock_sm:
+            mock_sm.return_value = 0.5
+
+            self.assertEqual(0.5, mock_sm('AAAA'))
+            with self.assertRaises(ValueError):
+                predict_message_mood("AAAA", self.model, 0.8, 0.5)
+            self.assertEqual(0.5, mock_sm('AAAA'))
+
 
 if __name__ == '__main__':
     unittest.main()
