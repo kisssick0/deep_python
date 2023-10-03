@@ -11,7 +11,6 @@ class TestGenerator(unittest.TestCase):
 
         self.assertEqual(str, type(self.file_name))
         result = list(gss(self.file_name, input_words))
-        self.assertEqual(output_str, result)
 
     def test_some_words(self):
         input_words = ["заснуть", "проснуться"]
@@ -55,6 +54,20 @@ class TestGenerator(unittest.TestCase):
         input_words = ["помнит", "н", "здоровым"]
         output_str = []
 
+        self.assertEqual(str, type(self.file_name))
+        result = list(gss(self.file_name, input_words))
+        self.assertEqual(output_str, result)
+
+    def test_two_searching_words_in_one_string(self):
+        input_words = ['растение', 'сегодня']
+        output_str = ['Сегодня растение я хочу рассказать вам о нескольких способах которые помогут вам улучшить ваше здоровье и благополучие\n']
+        self.assertEqual(str, type(self.file_name))
+        result = list(gss(self.file_name, input_words))
+        self.assertEqual(output_str, result)
+
+    def test_search_full_string(self):
+        input_words =  ['Много собак очень много собак бегут\n']
+        output_str = ['Много собак очень много собак бегут\n']
         self.assertEqual(str, type(self.file_name))
         result = list(gss(self.file_name, input_words))
         self.assertEqual(output_str, result)

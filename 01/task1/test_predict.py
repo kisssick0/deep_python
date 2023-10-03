@@ -8,6 +8,8 @@ from predict1 import predict_message_mood
 class TestPredict(unittest.TestCase):
     def setUp(self):
         self.model = SomeModel()
+
+    def test_simple(self):
         self.assertEqual(type(predict_message_mood("AAAA", self.model)), type("норм"))
         self.assertEqual(type(0.1), type(self.model.predict("VNFV")))
 
