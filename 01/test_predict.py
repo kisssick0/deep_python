@@ -13,6 +13,13 @@ class TestPredict(unittest.TestCase):
         self.assertEqual(type(predict_message_mood("AAAA", self.model)), type("норм"))
         self.assertEqual(type(0.1), type(self.model.predict("VNFV")))
 
+    def test_call_some_model_predict_with_message(self):
+        msg = "hello"
+        with mock.patch("predict1.SomeModel.predict") as mock_sm_predict:
+            mock_sm_predict.return_value = 0.5
+            mock_sm_predict(msg)
+            mock_sm_predict.assert_called_with(msg)
+
     def test_call(self):
         with mock.patch("predict1.SomeModel.predict") as mock_sm:
             mock_sm.return_value = 0.5
