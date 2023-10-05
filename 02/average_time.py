@@ -26,10 +26,11 @@ def mean(k: int):
             # print(func_dict)
 
             if len(func_dict[str(func.__name__)]) < k:
-                mean_time = 0
+                mean_time = sum(func_dict.get(str(func.__name__))[len(func_dict.get(str(func.__name__))) - k:]) / \
+                            len(func_dict[str(func.__name__)])
             else:
                 mean_time = sum(func_dict.get(str(func.__name__))[len(func_dict.get(str(func.__name__))) - k:]) / k
-                # print(mean_time)
+                print(mean_time)
             return mean_time
         return inner
     return inner_mean

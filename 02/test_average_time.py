@@ -51,7 +51,7 @@ class TestParse(unittest.TestCase):
         for _ in range(4):
             average_time.mean(10)(koo_mock)(1)
 
-        self.assertEqual(average_time.mean(10)(koo_mock)(1), 0)
+        self.assertAlmostEqual(average_time.mean(10)(koo_mock)(1), 0.5, delta=0.05)
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 5)
 
