@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
-
 import time
+from io import StringIO
 
 import average_time
 
@@ -9,58 +9,80 @@ import average_time
 class TestParse(unittest.TestCase):
     @patch("average_time.koo")
     def test_twenty_calls_ten_mean(self, koo_mock):
-        koo_mock.side_effect = lambda x: time.sleep(0.1)
+        sleep_time = 0.1
+        koo_mock.side_effect = lambda x: time.sleep(sleep_time)
         koo_mock.__name__ = 'koo'
+        mean_koo = average_time.mean(10)(koo_mock)
 
-        for _ in range(19):
-            average_time.mean(10)(koo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(20):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str(sleep_time))
+                koo_mock.assert_called_with(1)
 
-        self.assertAlmostEqual(average_time.mean(10)(koo_mock)(1), 0.1, delta=0.05)
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 20)
 
     @patch("average_time.koo")
     def test_five_calls_five_mean(self, koo_mock):
-        koo_mock.side_effect = lambda x: time.sleep(0.1)
+        sleep_time = 0.1
+        koo_mock.side_effect = lambda x: time.sleep(sleep_time)
         koo_mock.__name__ = 'koo'
+        mean_koo = average_time.mean(5)(koo_mock)
 
-        for _ in range(4):
-            average_time.mean(5)(koo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(5):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str(sleep_time))
+                koo_mock.assert_called_with(1)
 
-        self.assertAlmostEqual(average_time.mean(5)(koo_mock)(1), 0.1, delta=0.05)
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 5)
 
     @patch("average_time.koo")
     def test_ten_calls_five_mean(self, koo_mock):
-        koo_mock.side_effect = lambda x: time.sleep(0.3)
+        sleep_time = 0.3
+        koo_mock.side_effect = lambda x: time.sleep(sleep_time)
         koo_mock.__name__ = 'koo'
+        mean_koo = average_time.mean(5)(koo_mock)
 
-        for _ in range(9):
-            average_time.mean(5)(koo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(10):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str(sleep_time))
+                koo_mock.assert_called_with(1)
 
-        self.assertAlmostEqual(average_time.mean(5)(koo_mock)(1), 0.3, delta=0.05)
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 10)
 
     @patch("average_time.koo")
     def test_five_calls_ten_mean(self, koo_mock):
-        koo_mock.side_effect = lambda x: time.sleep(0.5)
-        koo_mock.__name__ = 'loo'
+        sleep_time = 0.5
+        koo_mock.side_effect = lambda x: time.sleep(sleep_time)
+        koo_mock.__name__ = 'koo'
+        mean_koo = average_time.mean(10)(koo_mock)
 
-        for _ in range(4):
-            average_time.mean(10)(koo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(5):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str(sleep_time))
+                koo_mock.assert_called_with(1)
 
-        self.assertAlmostEqual(average_time.mean(10)(koo_mock)(1), 0.5, delta=0.05)
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 5)
 
     @patch("average_time.koo")
     def test_one_call_one_mean(self, koo_mock):
-        koo_mock.side_effect = lambda x: time.sleep(0.5)
+        sleep_time = 0.5
+        koo_mock.side_effect = lambda x: time.sleep(sleep_time)
         koo_mock.__name__ = 'koo'
+        mean_koo = average_time.mean(1)(koo_mock)
 
-        self.assertAlmostEqual(average_time.mean(1)(koo_mock)(1), 0.5, delta=0.05)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            mean_koo(1)
+            self.assertEqual(fake_out.getvalue()[:3], str(sleep_time))
+            koo_mock.assert_called_with(1)
+
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 1)
 
@@ -72,23 +94,36 @@ class TestParse(unittest.TestCase):
         boo_mock.__name__ = 'boo'
         boo_mock.side_effect = lambda x: time.sleep(0.2)
 
-        for _ in range(5):
-            average_time.mean(10)(koo_mock)(1)
+        mean_koo = average_time.mean(10)(koo_mock)
+        mean_boo = average_time.mean(5)(boo_mock)
 
-        for _ in range(4):
-            average_time.mean(5)(boo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(4):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str('0.1'))
+                koo_mock.assert_called_with(1)
 
-        for _ in range(4):
-            average_time.mean(10)(koo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(4):
+                mean_boo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str('0.2'))
+                boo_mock.assert_called_with(1)
 
-        for _ in range(5):
-            average_time.mean(5)(boo_mock)(1)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(6):
+                mean_koo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str('0.1'))
+                koo_mock.assert_called_with(1)
 
-        self.assertAlmostEqual(average_time.mean(1)(koo_mock)(1), 0.1, delta=0.05)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            for _ in range(6):
+                mean_boo(1)
+                self.assertEqual(fake_out.getvalue()[:3], str('0.2'))
+                boo_mock.assert_called_with(1)
+
         self.assertTrue(koo_mock.called)
         self.assertEqual(koo_mock.call_count, 10)
 
-        self.assertAlmostEqual(average_time.mean(1)(boo_mock)(1), 0.2, delta=0.05)
         self.assertTrue(boo_mock.called)
         self.assertEqual(boo_mock.call_count, 10)
 

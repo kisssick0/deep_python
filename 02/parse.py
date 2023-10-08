@@ -8,11 +8,10 @@ def parse_json(json_str: str, required_fields=None, keywords=None, keyword_callb
         print('json_str should be str')
         return
 
-    if not isinstance(required_fields, list) or not isinstance(keywords, list):
+    if not isinstance(required_fields, list) or not isinstance(keywords, list) or not callable(keyword_callback):
+        print('put required_fields and keywords as list and keyword_callback as function')
         return
 
-    for key, value in json_doc.items():
-        json_doc[key] = (value.lower()).split()
     for i, keyword in enumerate(keywords):
         keywords[i] = keywords[i].lower()
 
@@ -20,8 +19,8 @@ def parse_json(json_str: str, required_fields=None, keywords=None, keyword_callb
 
     for field in fields:
         for keyword in keywords:
-            if keyword in json_doc[field]:
-                keyword_callback(keyword)
+            if keyword in (json_doc[field].lower()).split():
+                keyword_callback(field, keyword)
 
 
 def callback():

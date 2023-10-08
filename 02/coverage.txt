@@ -1,15 +1,18 @@
-Name                   Stmts   Miss  Cover   Missing
-----------------------------------------------------
-average_time.py           30      2    93%   40, 46
-test_average_time.py      92      0   100%
-----------------------------------------------------
-TOTAL                    122      2    98%
-
 Name            Stmts   Miss  Cover   Missing
 ---------------------------------------------
-parse.py           20      1    95%   28
-test_parse.py      61      0   100%
+parse.py           19      1    95%   27
+test_parse.py      91      0   100%
 ---------------------------------------------
-TOTAL              81      1    99%
+TOTAL             110      1    99%
+
+
+Name                   Stmts   Miss  Cover   Missing
+----------------------------------------------------
+average_time.py           33      2    94%   39, 45
+test_average_time.py     126      0   100%
+----------------------------------------------------
+TOTAL                    159      2    99%
+(deep_python_23b_kisssick) MBP-Alina:02 alinakozlova$
+
 
 

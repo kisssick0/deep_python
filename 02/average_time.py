@@ -1,11 +1,10 @@
 import time
-
-
-func_dict = {}
+from functools import wraps
 
 
 def mean(k: int):
     def inner_mean(func):
+        @wraps(func)
         def inner(*args):
             if not isinstance(k, int):
                 raise TypeError
@@ -15,23 +14,22 @@ def mean(k: int):
                 raise ValueError
 
             start_ts = time.time()
-            func(*args)
+            res = func(*args)
             end_ts = time.time()
 
-            if str(func.__name__) not in func_dict:
-                func_dict[str(func.__name__)] = []
-
             curr_time = end_ts - start_ts
-            func_dict[str(func.__name__)].append(curr_time)
-            # print(func_dict)
+            if 'func_lst' not in inner.__dict__:
+                inner.func_lst = []
+            inner.func_lst.append(curr_time)
 
-            if len(func_dict[str(func.__name__)]) < k:
-                mean_time = sum(func_dict.get(str(func.__name__))[len(func_dict.get(str(func.__name__))) - k:]) / \
-                            len(func_dict[str(func.__name__)])
+            call_time_list = inner.func_lst
+            if len(call_time_list) < k:
+                mean_time = sum(call_time_list) / \
+                            len(call_time_list)
             else:
-                mean_time = sum(func_dict.get(str(func.__name__))[len(func_dict.get(str(func.__name__))) - k:]) / k
-                print(mean_time)
-            return mean_time
+                mean_time = sum(call_time_list[len(call_time_list) - k:]) / k
+            print(mean_time)
+            return res
         return inner
     return inner_mean
 
@@ -47,5 +45,8 @@ def boo(arg1):
     arg1 += 1
 
 
-# for _ in range(1):
-    # print(foo(0.5))
+# for _ in range(10):
+    # print(koo(0.5))
+
+# for _ in range(10):
+    # print(koo(0.5))
