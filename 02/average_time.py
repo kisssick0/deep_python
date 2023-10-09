@@ -12,9 +12,9 @@ def mean(k: int):
 
     def inner_mean(func):
         @wraps(func)
-        def inner(*args):
+        def inner(*args, **kwargs):
             start_ts = time.time()
-            res = func(*args)
+            res = func(*args, **kwargs)
             end_ts = time.time()
 
             curr_time = end_ts - start_ts
@@ -37,6 +37,7 @@ def mean(k: int):
 @mean(10)
 def koo(arg1):
     arg1 += 1
+    #return arg1
     # time.sleep(0.5)
 
 
@@ -45,8 +46,8 @@ def boo(arg1):
     arg1 += 1
 
 
-# for _ in range(10):
-    # print(koo(0.5))
+#for _ in range(10):
+    #print(koo(arg1=2))
 
 # for _ in range(10):
     # print(koo(0.5))
