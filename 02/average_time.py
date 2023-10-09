@@ -37,7 +37,7 @@ def mean(k: int):
 @mean(10)
 def koo(arg1):
     arg1 += 1
-    #return arg1
+    # return arg1
     # time.sleep(0.5)
 
 
@@ -46,8 +46,8 @@ def boo(arg1):
     arg1 += 1
 
 
-#for _ in range(10):
-    #print(koo(arg1=2))
+# for _ in range(10):
+    # print(koo(arg1=2))
 
 # for _ in range(10):
     # print(koo(0.5))
