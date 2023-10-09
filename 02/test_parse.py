@@ -105,6 +105,15 @@ class TestParse(unittest.TestCase):
         callback_mock.assert_any_call('key1', 'cat')
         callback_mock.assert_any_call('key1', 'run')
 
+    @patch("parse.callback")
+    def test_case_insensitive_keyword(self, callback_mock):
+        parse.parse_json(self.json_str, ['key1'], ['sMaLl', 'Cat', 'ruN'], callback_mock)
+        self.assertTrue(callback_mock.called)
+        self.assertEqual(callback_mock.call_count, 3)
+        callback_mock.assert_any_call('key1', 'small')
+        callback_mock.assert_any_call('key1', 'cat')
+        callback_mock.assert_any_call('key1', 'run')
+
 
 if __name__ == '__main__':
     unittest.main()

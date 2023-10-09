@@ -3,16 +3,16 @@ from functools import wraps
 
 
 def mean(k: int):
+    if not isinstance(k, int):
+        raise TypeError
+    if k == 0:
+        raise ZeroDivisionError
+    if k < 0:
+        raise ValueError
+
     def inner_mean(func):
         @wraps(func)
         def inner(*args):
-            if not isinstance(k, int):
-                raise TypeError
-            if k == 0:
-                raise ZeroDivisionError
-            if k < 0:
-                raise ValueError
-
             start_ts = time.time()
             res = func(*args)
             end_ts = time.time()
