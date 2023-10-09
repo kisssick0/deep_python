@@ -80,6 +80,5 @@ class TestGenerator(unittest.TestCase):
         self.assertEqual(output_str, result)
 
 
-
 if __name__ == '__main__':
     unittest.main()
