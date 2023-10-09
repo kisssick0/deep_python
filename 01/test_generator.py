@@ -11,6 +11,7 @@ class TestGenerator(unittest.TestCase):
 
         self.assertEqual(str, type(self.file_name))
         result = list(gss(self.file_name, input_words))
+        self.assertEqual(output_str, result)
 
     def test_some_words(self):
         input_words = ["заснуть", "проснуться"]
