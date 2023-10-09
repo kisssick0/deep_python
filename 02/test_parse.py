@@ -114,6 +114,12 @@ class TestParse(unittest.TestCase):
         callback_mock.assert_any_call('key1', 'cat')
         callback_mock.assert_any_call('key1', 'run')
 
+        parse.parse_json(self.json_str, ['Key1'], ['bIg', 'cat'], callback_mock)
+        self.assertTrue(callback_mock.called)
+        self.assertEqual(callback_mock.call_count, 5)
+        callback_mock.assert_any_call('Key1', 'big')
+        callback_mock.assert_any_call('Key1', 'cat')
+
 
 if __name__ == '__main__':
     unittest.main()
