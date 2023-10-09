@@ -66,11 +66,19 @@ class TestGenerator(unittest.TestCase):
         self.assertEqual(output_str, result)
 
     def test_search_full_string(self):
-        input_words =  ['Много собак очень много собак бегут\n']
-        output_str = ['Много собак очень много собак бегут\n']
+        input_words = ['Также стоит помнить о том что перед сном лучше поесть легкую еду\n']
+        output_str = ['Также стоит помнить о том что перед сном лучше поесть легкую еду\n']
         self.assertEqual(str, type(self.file_name))
         result = list(gss(self.file_name, input_words))
         self.assertEqual(output_str, result)
+
+    def test_two_same_strings_in_json(self):
+        input_words = ['Много собак очень много собак бегут\n']
+        output_str = ['Много собак очень много собак бегут\n', 'Много собак очень много собак бегут\n']
+        self.assertEqual(str, type(self.file_name))
+        result = list(gss(self.file_name, input_words))
+        self.assertEqual(output_str, result)
+
 
 
 if __name__ == '__main__':
