@@ -29,9 +29,9 @@ class TestDescriptor(unittest.TestCase):
         with self.assertRaises(TypeError):
             CrochetClothes(right_hook, 'aaaaa', right_piece)
         with self.assertRaises(ValueError):
-            CrochetClothes(13, {'cotton': 50, 'acrylic': 10}, right_piece)
+            CrochetClothes(right_hook, {'cotton': 50, 'acrylic': 10}, right_piece)
         with self.assertRaises(ValueError):
-            CrochetClothes(0.5, {'cotton': 50, 'smth': 50}, right_piece)
+            CrochetClothes(right_hook, {'cotton': 50, 'smth': 50}, right_piece)
 
         self.assertEqual(right_thing.composition, {'cotton': 50, 'acrylic': 30.5, 'wool': 19.5})
 
@@ -44,7 +44,7 @@ class TestDescriptor(unittest.TestCase):
         with self.assertRaises(TypeError):
             CrochetClothes(right_hook, right_composition, 5)
         with self.assertRaises(ValueError):
-            CrochetClothes(13, right_composition, 'smth')
+            CrochetClothes(right_hook, right_composition, 'smth')
 
         self.assertEqual(right_thing.piece, 'sweater')
 
