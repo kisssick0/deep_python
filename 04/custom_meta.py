@@ -21,9 +21,6 @@ class CustomMeta(type):
             key = f'custom_{key}'
         super(CustomMeta, cls).__setattr__(key, value)
 
-    def __call__(cls, *args, **kwargs):
-        return super().__call__(*args, **kwargs)
-
 
 class CustomClass(metaclass=CustomMeta):
     x = 50
