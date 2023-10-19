@@ -1,14 +1,15 @@
 Name                  Stmts   Miss  Cover   Missing
 ---------------------------------------------------
-custom_meta.py           26      0   100%
+custom_meta.py           27      0   100%
 test_custom_meta.py      35      0   100%
 ---------------------------------------------------
-TOTAL                    61      0   100%
+TOTAL                    62      0   100%
 
 
 Name                 Stmts   Miss  Cover   Missing
 --------------------------------------------------
-descriptor.py           57      3    95%   22, 49, 71
-test_descriptor.py      41      0   100%
+descriptor.py           51      0   100%
+test_descriptor.py      82      0   100%
 --------------------------------------------------
-TOTAL                   98      3    97%
+TOTAL                  133      0   100%
+
