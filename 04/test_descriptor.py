@@ -80,7 +80,7 @@ class TestDescriptor(unittest.TestCase):
         self.assertEqual(inst1.piece, 'vest')
         self.assertEqual(inst2.piece, 'top')
 
-    def test_wrong_to_vallid_values(self):
+    def test_wrong_to_valid_values(self):
         inst = CrochetClothes(6, {'cotton': 100}, 'sweater')
         with self.assertRaises(ValueError):
             inst.hook = 0
