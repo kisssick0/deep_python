@@ -2,11 +2,11 @@ import math
 
 
 class Hook:
-    def __init__(self):
-        self.hook_num = 0
+    def __set_name__(self, owner, name):
+        self.name = f"_hook_descr_{name}"
 
     def __get__(self, obj, objtype):
-        return self.hook_num
+        return getattr(obj, self.name)
 
     def __set__(self, obj, val):
         if not isinstance(val, (int, float)):
@@ -16,20 +16,17 @@ class Hook:
         if not math.isclose(abs(int(val) - val), 0.0) and not math.isclose(abs(int(val) - val), 0.5):
             raise ValueError("number must be like 8 or 8.0 or 8.5")
 
-        self.hook_num = val
-
-    def __delete__(self, obj):
-        del self.hook_num
+        return setattr(obj, self.name, val)
 
 
 class Materials:
     materials_list = ['cotton', 'polyester', 'silk', 'wool', 'acrylic', 'linen']
 
-    def __init__(self):
-        self.composition = 0
+    def __set_name__(self, owner, name):
+        self.name = f"_materials_descr_{name}"
 
     def __get__(self, obj, objtype):
-        return self.composition
+        return getattr(obj, self.name)
 
     def __set__(self, obj, dct):
         if not isinstance(dct, dict) or not dct:
@@ -43,20 +40,17 @@ class Materials:
         if not math.isclose(count_percentages, 100):
             raise ValueError("the sum of the percentages of materials must be 100")
 
-        self.composition = dct
-
-    def __delete__(self, obj):
-        del self.composition
+        return setattr(obj, self.name, dct)
 
 
 class Clothes:
     clothes_pieces = ['sweater', 'top', 'vest', 'bag']
 
-    def __init__(self):
-        self.name = 0
+    def __set_name__(self, owner, name):
+        self.name = f"_clothes_descr_{name}"
 
     def __get__(self, obj, objtype):
-        return self.name
+        return getattr(obj, self.name)
 
     def __set__(self, obj, piece):
         if not isinstance(piece, str):
@@ -65,10 +59,7 @@ class Clothes:
         if piece not in self.clothes_pieces:
             raise ValueError("clothes piece must be sweater, top, vest or bag")
 
-        self.name = piece
-
-    def __delete__(self, obj):
-        del self.name
+        return setattr(obj, self.name, piece)
 
 
 class CrochetClothes:

@@ -8,7 +8,8 @@ class CustomMeta(type):
                 custom_dict[name_attr] = value
 
         def set_attr(cls, key, value):
-            cls.__dict__[f'custom_{key}'] = value
+            if not key.startswith('custom') and not key.startswith('__') and not key.endswith('__'):
+                cls.__dict__[f'custom_{key}'] = value
 
         custom_dict['__setattr__'] = set_attr
 
