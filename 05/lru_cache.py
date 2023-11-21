@@ -9,7 +9,10 @@ class LRUCache:
 
     def get(self, key):
         if key in self.dct:
-            self.deq.remove(key)
+            last = self.deq.pop()
+            if last != key:
+                self.deq.remove(key)
+                self.deq.append(last)
             self.deq.append(key)
             return self.dct[key]
         return None
