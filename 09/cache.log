@@ -1,0 +1,18 @@
+2023-11-25 14:40:05,584	logger_file	ERROR	key: k1 not in lru
+2023-11-25 14:40:05,584	logger_file	INFO	set [key: k1 value: val1]: len lru cache: 1; limit: 2
+2023-11-25 14:40:05,584	logger_file	ERROR	key: k2 not in lru
+2023-11-25 14:40:05,584	logger_file	INFO	set [key: k2 value: val2]: len lru cache: 2; limit: 2
+2023-11-25 14:40:05,584	logger_file	ERROR	key: k3 not in lru
+2023-11-25 14:40:05,584	logger_file	INFO	for set [key: k3 value: val3] reach limit: 2; key: k1 remove
+2023-11-25 14:40:05,584	logger_file	INFO	set [key: k3 value: val3]: len lru cache: 2; limit: 2
+2023-11-25 14:40:05,584	logger_file	ERROR	key: k1 not in lru
+2023-11-25 14:40:05,585	logger_file	INFO	key: k2 is not last: k3
+2023-11-25 14:40:05,585	logger_file	INFO	for key: k2 found value: val2
+2023-11-25 14:40:05,585	logger_file	ERROR	key: k5 not in lru
+2023-11-25 14:41:29,382	logger_file	ERROR	key: k1 not in lru
+2023-11-25 14:41:29,383	logger_file	ERROR	key: k2 not in lru
+2023-11-25 14:41:29,383	logger_file	ERROR	key: k3 not in lru
+2023-11-25 14:41:29,383	logger_file	ERROR	key: k1 not in lru
+2023-11-25 14:41:29,383	logger_file	INFO	key: k2 is not last: k3
+2023-11-25 14:41:29,383	logger_file	INFO	for key: k2 found value: val2
+2023-11-25 14:41:29,384	logger_file	ERROR	key: k5 not in lru
