@@ -7,6 +7,15 @@ import argparse
 from url_handler import url_handler
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-w', '--workers_count', type=int, required=True, nargs=1)
+    parser.add_argument('-k', '--top_count', type=int, required=True, nargs=1)
+
+    args = parser.parse_args()
+    return args.workers_count[0], args.top_count[0]
+
+
 class Server:
     def __init__(self, worker_num=10, top_k=5, handler_func=url_handler, handler_print=print):
         self.serve_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto=0)
@@ -58,16 +67,9 @@ class Server:
 
 
 if __name__ == '__main__':
-    # Парсер аргументов
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--worker_count', type=int)
-    parser.add_argument('-k', '--top_count', type=int)
-    args = parser.parse_args()
+    workers_count, top_k_words = parse_arguments()
 
-    worker_count = args.worker_count
-    top_count = args.top_count
-
-    server = Server(worker_num=worker_count, top_k=top_count)
+    server = Server(worker_num=workers_count, top_k=top_k_words)
     start = time.time()
     server.run_server()
     end = time.time()
