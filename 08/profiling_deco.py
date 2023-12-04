@@ -1,5 +1,7 @@
+import io
+import pstats
 from functools import wraps
-from memory_profiler import profile
+import cProfile
 from io import StringIO
 
 
@@ -8,21 +10,22 @@ def props(cls):
 
 
 def profile_deco(input_func):
+    profiler = cProfile.Profile()
+
     @wraps(input_func)
     def wrapper(*args, **kwargs):
-        if 'stats' not in props(wrapper):
-            wrapper.stat = StringIO()
-        if 'call_num' not in props(wrapper):
-            wrapper.call_num = 0
-        wrapper.call_num += 1
-        wrapper.stat.write(f'\n{wrapper.call_num} call of func\n')
-        decorated = profile(input_func, stream=wrapper.stat)
+        profiler.enable()
+        result = input_func(*args, **kwargs)
+        profiler.disable()
+        return result
 
-        def print_stat():
-            print(wrapper.stat.getvalue())
+    def print_stat():
+        out = io.StringIO()
+        stat = pstats.Stats(profiler, stream=out)
+        stat.print_stats()
+        print(out.getvalue())
 
-        wrapper.print_stat = print_stat
-        return decorated(*args, **kwargs)
+    wrapper.print_stat = print_stat
     return wrapper
 
 
