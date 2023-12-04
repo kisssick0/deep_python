@@ -63,6 +63,22 @@ class TestLRUCache(unittest.TestCase):
         self.assertEqual(self.cache.get("k2"), "val2")
         self.assertIsNone(self.cache.get("k1"))
 
+    def test_set_new_value(self):
+        self.cache = LRUCache(2)
+        self.cache.set("k2", "val2")
+        self.cache.set("k3", "val3")
+
+        self.assertIsNone(self.cache.get("k1"))
+        self.assertEqual(self.cache.get("k2"), "val2")
+        self.assertEqual(self.cache.get("k3"), "val3")
+
+        self.cache.set("k2", "new_val2")
+        self.cache.set("k1", "val1")
+
+        self.assertEqual(self.cache.get("k1"), "val1")
+        self.assertEqual(self.cache.get("k2"), "new_val2")
+        self.assertIsNone(self.cache.get("k3"))
+
 
 if __name__ == '__main__':
     unittest.main()
