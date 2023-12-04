@@ -2,7 +2,6 @@ import io
 import pstats
 from functools import wraps
 import cProfile
-from io import StringIO
 
 
 def props(cls):
