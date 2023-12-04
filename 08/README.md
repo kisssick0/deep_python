@@ -47,23 +47,21 @@ Line #    Mem usage    Increment  Occurrences   Line Contents
 ##########################################
 profiling decorator for calls of functions
 #########################################
-2 call of func
-Filename: /Users/alinakozlova/Desktop/course/deep_python_23b_kisssick/08/profiling_deco.py
+         4 function calls in 0.000 seconds
 
-Line #    Mem usage    Increment  Occurrences   Line Contents
-=============================================================
-    29     15.3 MiB     15.3 MiB           1   @profile_deco
-    30                                         def add(a, b):
-    31     15.3 MiB      0.0 MiB           1       return a + b
+   Random listing order was used
 
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 /Users/alinakozlova/Desktop/course/deep_python_23b_kisssick/08/profiling_deco.py:27(add)
 
 
 
-1 call of func
-Filename: /Users/alinakozlova/Desktop/course/deep_python_23b_kisssick/08/profiling_deco.py
 
-Line #    Mem usage    Increment  Occurrences   Line Contents
-=============================================================
-    34     15.3 MiB     15.3 MiB           1   @profile_deco
-    35                                         def sub(a, b):
-    36     15.3 MiB      0.0 MiB           1       return a - b
+2 function calls in 0.000 seconds
+
+   Random listing order was used
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /Users/alinakozlova/Desktop/course/deep_python_23b_kisssick/08/profiling_deco.py:32(sub)

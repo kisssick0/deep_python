@@ -4,10 +4,6 @@ from functools import wraps
 import cProfile
 
 
-def props(cls):
-    return [i for i in cls.__dict__.keys() if i[:1] != '_']
-
-
 def profile_deco(input_func):
     profiler = cProfile.Profile()
 
