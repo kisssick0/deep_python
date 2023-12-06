@@ -2,6 +2,7 @@ import json
 import unittest
 from unittest.mock import patch, call, mock_open
 import aiohttp
+
 from fetcher import process_text, fetch_and_process, main
 
 
